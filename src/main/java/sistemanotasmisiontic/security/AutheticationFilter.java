@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Map;
 
 
 public class AutheticationFilter extends UsernamePasswordAuthenticationFilter {
@@ -50,9 +51,14 @@ public class AutheticationFilter extends UsernamePasswordAuthenticationFilter {
         // Generar el token
         String token = Jwts.builder()
                 .setSubject(email)
-                .setExpiration(new Date())
-                .signWith(SignatureAlgorithm.HS512, "clavesecreta").compact();
-        System.out.println(token);
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.expiration_date))
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.getTokenSecret()).compact();
+        String data = new ObjectMapper().writeValueAsString(Map.of("token", SecurityConstants.TOKEN_PREFIX + token));
+
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+        response.getWriter().print(data);
+        response.flushBuffer();
     }
 
 }

@@ -8,4 +8,5 @@ import sistemanotasmisiontic.models.request.UserRegisterRequestModel;
 public interface UserService extends UserDetailsService {
     public UserDetails loadUserByUsername (String email);
     public UserEntity creatUser(UserRegisterRequestModel user);
+    public UserEntity getUser(String email);
 }

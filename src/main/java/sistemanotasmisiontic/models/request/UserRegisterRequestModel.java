@@ -1,6 +1,7 @@
 package sistemanotasmisiontic.models.request;
 
 import lombok.Data;
+import sistemanotasmisiontic.annotations.UniqueEmail;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -14,6 +15,7 @@ public class UserRegisterRequestModel {
 
     @NotEmpty
     @Email
+    @UniqueEmail
     private String email;
 
     @NotEmpty

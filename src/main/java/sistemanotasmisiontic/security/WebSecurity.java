@@ -31,11 +31,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure (HttpSecurity http) throws Exception{
         http.cors().and().csrf().disable();
 
-        http.authorizeHttpRequests().antMatchers(HttpMethod.POST, "/users/login")
-                .permitAll().anyRequest().authenticated();
+        http.authorizeHttpRequests().antMatchers(HttpMethod.POST,"/users").permitAll().anyRequest().authenticated();
 
-        http.addFilter(getAuthenticationFilter())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+         http.addFilter(getAuthenticationFilter())
+                 .addFilter(new AuthorizationFilter(authenticationManager()))
+                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
     }
     @Override
@@ -46,7 +46,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     public AutheticationFilter getAuthenticationFilter() throws Exception {
         final AutheticationFilter autheticationFilter = new AutheticationFilter(authenticationManager());
-        autheticationFilter.setFilterProcessesUrl("/users/login");
+        autheticationFilter.setFilterProcessesUrl(SecurityConstants.LOGIN_URL);
         return autheticationFilter;
     }
 }
