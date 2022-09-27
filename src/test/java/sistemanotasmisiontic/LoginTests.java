@@ -1,2 +1,6 @@
-package sistemanotasmisiontic;public class LoginTests {
+package sistemanotasmisiontic;
+
+import org.springframework.boot.test.context.SpringBootTest;
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class LoginTests {
 }
