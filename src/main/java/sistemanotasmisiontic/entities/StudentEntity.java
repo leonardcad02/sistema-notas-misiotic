@@ -4,13 +4,13 @@ import lombok.Data;
 
 import javax.persistence.*;
 
-@Entity(name = "users")
+@Entity(name = "students")
 @Data
-public class UserEntity {
+public class StudentEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long idstudent;
 
     @Column(nullable = false, length = 255)
     private String name;
@@ -19,15 +19,6 @@ public class UserEntity {
     private String lastname;
 
     @Column(nullable = false, length = 255)
-    private String email;
-
-    @Column(nullable = false)
-    private String encryptedPassword;
-
-    @Column(nullable = false, length = 255)
-    private String cc;
-
-    @Column(nullable = false, length = 255)
-    private String rol;
+    private long idgrade;
 
 }

@@ -14,6 +14,9 @@ public class UserRegisterRequestModel {
     private String name;
 
     @NotEmpty
+    private String lastname;
+
+    @NotEmpty
     @Email
     @UniqueEmail
     private String email;
@@ -21,5 +24,11 @@ public class UserRegisterRequestModel {
     @NotEmpty
     @Size(min = 8, max = 40)
     private String password;
+
+    @NotEmpty
+    private String cc;
+
+    @NotEmpty
+    private String rol;
 
 }
