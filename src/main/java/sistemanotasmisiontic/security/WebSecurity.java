@@ -37,6 +37,10 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
                  .addFilter(new AuthorizationFilter(authenticationManager()))
                  .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
+        http.addFilter(getAuthentication())
+                .addFilter(new AuthorizationFilter(authenticationManager()))
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+
     }
     @Override
     public void configure (AuthenticationManagerBuilder auth) throws Exception{
@@ -49,4 +53,11 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         autheticationFilter.setFilterProcessesUrl(SecurityConstants.LOGIN_URL);
         return autheticationFilter;
     }
+
+    public AutheticationFilter getAuthentication() throws Exception {
+        final AutheticationFilter autheticationFilter = new AutheticationFilter(authenticationManager());
+        autheticationFilter.setFilterProcessesUrl(SecurityConstants.STUDENT_URL);
+        return autheticationFilter;
+    }
+
 }

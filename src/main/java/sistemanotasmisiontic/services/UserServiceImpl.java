@@ -7,8 +7,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import sistemanotasmisiontic.entities.StudentEntity;
 import sistemanotasmisiontic.entities.UserEntity;
+import sistemanotasmisiontic.models.request.StudentModel;
 import sistemanotasmisiontic.models.request.UserRegisterRequestModel;
+import sistemanotasmisiontic.repositories.StudentRepository;
 import sistemanotasmisiontic.repositories.UserRepository;
 
 import java.util.ArrayList;
@@ -17,10 +20,13 @@ import java.util.ArrayList;
 public class UserServiceImpl implements UserService{
 
     UserRepository userRepository;
+    StudentRepository studentRepository;
+
     BCryptPasswordEncoder bCryptPasswordEncoder;
-    public UserServiceImpl ( UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder){
+    public UserServiceImpl ( UserRepository userRepository, BCryptPasswordEncoder bCryptPasswordEncoder, StudentRepository studentRepository){
         this.userRepository = userRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.studentRepository = studentRepository;
     }
 
 
@@ -40,7 +46,19 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserEntity getUser(String email) {
+
         return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public StudentEntity createStudent(StudentModel student) {
+        StudentEntity studentEntity = new StudentEntity();
+
+
+        BeanUtils.copyProperties(student, studentEntity);
+
+
+        return studentRepository.save(studentEntity);
     }
 
     @Override

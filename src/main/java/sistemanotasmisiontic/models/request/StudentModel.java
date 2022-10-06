@@ -13,4 +13,5 @@ public class StudentModel {
 
     @NotEmpty
     private long idgrade;
+
 }

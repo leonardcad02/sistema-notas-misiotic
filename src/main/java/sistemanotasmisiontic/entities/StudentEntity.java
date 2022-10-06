@@ -21,4 +21,5 @@ public class StudentEntity {
     @Column(nullable = false, length = 255)
     private long idgrade;
 
+
 }
